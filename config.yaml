@@ -3,10 +3,11 @@ dbConfig:
   port: 27017
   username: root
   password: toor
+  replica: rs0
 
 apiConfig:
   base_uri: 'https://api.etherscan.io/'
-  token: '<your token here>'
+  token: 'your-key-here'
 
 serverConfig:
   port: 1323

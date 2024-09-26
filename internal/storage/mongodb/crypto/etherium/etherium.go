@@ -1,7 +1,10 @@
 package rmongo
 
 import (
+	"context"
 	"gihub.com/robbitancor/simple-microservice/internal/domain/crypto/etherium"
+	"github.com/labstack/gommon/log"
+	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
@@ -14,6 +17,17 @@ func NewEtheriumMongoRepository(client *mongo.Client) *MongoRepository {
 }
 
 func (e *MongoRepository) Create(eth etherium.Etherium) error {
+	db := e.client.Database("testing")
+	col := db.Collection("crypto")
+	_, err := col.InsertOne(context.TODO(), bson.D{
+		{
+			Key: "amount", Value: eth.Balance,
+		},
+	})
+
+	if err != nil {
+		log.Error(err)
+	}
 	return nil
 }
 

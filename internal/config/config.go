@@ -11,6 +11,7 @@ type DbConfig struct {
 	Port     string `yaml:"port"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
+	Replica  string `yaml:"replica"`
 }
 
 type ApiConfig struct {

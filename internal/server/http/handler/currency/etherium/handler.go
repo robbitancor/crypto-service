@@ -5,6 +5,7 @@ import (
 	"gihub.com/robbitancor/simple-microservice/internal/domain/crypto/etherium"
 	"gihub.com/robbitancor/simple-microservice/internal/service"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 	"net/http"
 )
 
@@ -27,7 +28,8 @@ func (h *Handler) GetEtheriumBalance(c echo.Context) error {
 	var gas etherium.Gas
 	var eth etherium.Etherium
 
-	c.Bind(&reqDetails)
+	_ = c.Bind(&reqDetails)
+
 	address := reqDetails["address"].(string)
 
 	balance = h.s.GetBalance(h.a.BaseUri, address, "account", "balance", h.a.Token)
@@ -37,6 +39,11 @@ func (h *Handler) GetEtheriumBalance(c echo.Context) error {
 	eth.Gas = gas.Result
 	eth.Balance = balance.Result
 	eth.Block = block.Result
+	err := h.s.SaveEtherium(eth)
+
+	if err != nil {
+		log.Error(err)
+	}
 
 	return c.JSON(http.StatusOK, eth)
 }

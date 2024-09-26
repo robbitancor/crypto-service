@@ -5,21 +5,23 @@ import (
 	"fmt"
 	"gihub.com/robbitancor/simple-microservice/internal/domain/crypto/etherium"
 	"gihub.com/robbitancor/simple-microservice/internal/server"
-	storage2 "gihub.com/robbitancor/simple-microservice/internal/storage"
+	repository "gihub.com/robbitancor/simple-microservice/internal/storage"
+	"gihub.com/robbitancor/simple-microservice/internal/storage/redis"
 	"github.com/labstack/gommon/log"
 )
 
 type Service struct {
-	c server.Client
-	r *storage2.EtheriumRepository
+	c  server.Client                 // http client
+	r  repository.EtheriumRepository // db client (e.g.,mysql or mongodb)
+	rc redis.RedisObject             //redis client
 }
 
-func (e Service) SetRepo(repo storage2.EtheriumRepository) {
-	e.r = &repo
+func (e Service) SetRepo(repo repository.EtheriumRepository) {
+	e.r = repo
 }
 
-func NewEtheriumService(client server.Client, repo storage2.EtheriumRepository) Service {
-	return Service{r: &repo, c: client}
+func NewEtheriumService(client server.Client, repo repository.EtheriumRepository, rc redis.RedisObject) Service {
+	return Service{r: repo, c: client}
 }
 
 func (e Service) GetBalance(uri, address, module, action, apiKey string) etherium.Balance {
@@ -74,6 +76,11 @@ func (e Service) GetGasPrice(uri, module, action, apiKey string) etherium.Gas {
 	return gas
 }
 func (e Service) SaveEtherium(eth etherium.Etherium) error {
+	err := e.r.Create(eth)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
 
 	return nil
 }
