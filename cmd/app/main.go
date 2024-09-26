@@ -64,11 +64,11 @@ func initMongo(dbConfig config.DbConfig) *mongo.Client {
 
 	//user := dbConfig.Username
 	//pass := dbConfig.Password
-	host := dbConfig.Host
+	//host := dbConfig.Host
 	port := dbConfig.Port
 	//replica := dbConfig.Replica
 
-	uri := fmt.Sprintf("mongodb://%s:%s", host, port)
+	uri := fmt.Sprintf("mongodb://%s:%s", "172.28.5.2", port)
 	client, err := mongo.Connect(options.Client().ApplyURI(uri).
 		SetBSONOptions(bsonOpts))
 
@@ -113,7 +113,7 @@ func loadConfigs() config.ConfigRoot {
 func initRedis(ctx context.Context) *redis.Client {
 
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6378",
+		Addr:     "172.28.5.3:6379",
 		Password: "",
 		DB:       0,
 	})

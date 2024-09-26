@@ -27,4 +27,16 @@ Running the project.
    "address":"0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"
    }`
 
+Optional:
+ in the _/scripts_ folder, you can run each individually to:
+  - run mongodb (run run-mongodb.bat)
+  - deploy the project (run _deploy.bat_)
+ pulling images:
+  - mongodb and redis (run _docker-pull.bat_)
+
+
+Known issues/limitations:
+ - mongodb and redis implementation for demo only
+ - test are found in mock folder but not used yet
+
 Thank you

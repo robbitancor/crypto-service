@@ -1,1 +1,1 @@
-docker run -p 27017:27017 -v --rm --name mongo-microservice mongo
+docker run -p 27017:27017 --network crypto-network --ip=172.28.5.2 --rm --name mongo-microservice mongo
