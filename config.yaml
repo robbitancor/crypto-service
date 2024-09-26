@@ -1,0 +1,12 @@
+dbConfig:
+  host: localhost
+  port: 27017
+  username: root
+  password: toor
+
+apiConfig:
+  base_uri: 'https://api.etherscan.io/'
+  token: '<your token here>'
+
+serverConfig:
+  port: 1323

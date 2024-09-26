@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  test-server:
+    image: simple-golang-server
+    container_name: test-server
+    ports:
+      - 1323:1323
