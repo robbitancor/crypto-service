@@ -29,7 +29,7 @@ func main() {
 
 	initServer(e)
 	cfg := loadConfigs()
-	r := initRedis(ctx)
+	r := initRedis(ctx, cfg.RedisConfig)
 	cc := initMongo(cfg.DbConfig)
 	client := eth_http.NewClient(cfg.ApiConfig, &c)
 	rc := rredis.NewRedisRepository(ctx, r)
@@ -57,18 +57,18 @@ func initDb(dbConfig config.DbConfig) *sql.DB {
 	return db
 }
 
-func initMongo(dbConfig config.DbConfig) *mongo.Client {
+func initMongo(cfg config.DbConfig) *mongo.Client {
 	bsonOpts := &options.BSONOptions{
 		NilSliceAsEmpty: true,
 	}
 
 	//user := dbConfig.Username
 	//pass := dbConfig.Password
-	//host := dbConfig.Host
-	port := dbConfig.Port
+	host := cfg.Host
+	port := cfg.Port
 	//replica := dbConfig.Replica
 
-	uri := fmt.Sprintf("mongodb://%s:%s", "172.28.5.2", port)
+	uri := fmt.Sprintf("mongodb://%s:%s", host, port)
 	client, err := mongo.Connect(options.Client().ApplyURI(uri).
 		SetBSONOptions(bsonOpts))
 
@@ -110,10 +110,10 @@ func loadConfigs() config.ConfigRoot {
 	return configRoot
 }
 
-func initRedis(ctx context.Context) *redis.Client {
+func initRedis(ctx context.Context, cfg config.RedisConfig) *redis.Client {
 
 	client := redis.NewClient(&redis.Options{
-		Addr:     "172.28.5.3:6379",
+		Addr:     fmt.Sprintf("%s:%s", cfg.Host, cfg.Port),
 		Password: "",
 		DB:       0,
 	})

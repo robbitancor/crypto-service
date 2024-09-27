@@ -1,5 +1,5 @@
 dbConfig:
-  host: localhost
+  host: 172.28.5.2
   port: 27017
   username: root
   password: toor
@@ -11,3 +11,7 @@ apiConfig:
 
 serverConfig:
   port: 1323
+
+redisConfig:
+  host: 172.28.5.3
+  port: 6379
