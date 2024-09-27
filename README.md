@@ -24,7 +24,7 @@ Running the project:
 2. pull the image by running _docker-pull.bat_ in /scripts
 3. provide the TOKEN in the config file on simple-microservice/internal/config
 4. make sure you have docker/docker-desktop installed and running on your machine
-5. run _crypto-network-setup.bat_ (this will create network for containers can talk with eacher other)
+5. run _crypto-network-setup.bat_ (this will create network for containers so they can talk with each other)
 6. run _mongodb-docker-setup.bat_
 7. run _redis-docker-setup.bat_
 8. run the _deploy.bat_ to build the image and run an instance in docker
