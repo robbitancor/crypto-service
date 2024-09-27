@@ -17,22 +17,22 @@ Security.
  using echo (https://echo.labstack.com/docs/middleware/secure)
 
 
-Running the project.
+Running the project:
+
+
 1. clone the repository.
-2. provide the TOKEN in the config file on simple-microservice/internal/config
-3. make sure you have docker/docker-desktop installed and running on your machine
-4. run the _deploy.bat_ to build the image and run an instance in docker
-5. you may test the service on _localhost:1323/etherium/getBalance_ with a POST request. You can use this JSON payload
+2. pull the image by running _docker-pull.bat_ in /scripts
+3. provide the TOKEN in the config file on simple-microservice/internal/config
+4. make sure you have docker/docker-desktop installed and running on your machine
+5. run _crypto-network-setup.bat_ (this will create network for containers can talk with eacher other)
+6. run _mongodb-docker-setup.bat_
+7. run _redis-docker-setup.bat_
+8. run the _deploy.bat_ to build the image and run an instance in docker
+9. you may test the service on _localhost:1323/etherium/getBalance_ with a POST request. You can use this JSON payload
    `{
    "address":"0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae"
    }`
 
-Optional:
- in the _/scripts_ folder, you can run each individually to:
-  - run mongodb (run run-mongodb.bat)
-  - deploy the project (run _deploy.bat_)
- pulling images:
-  - mongodb and redis (run _docker-pull.bat_)
 
 
 Known issues/limitations:
