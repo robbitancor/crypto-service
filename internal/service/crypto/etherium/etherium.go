@@ -21,7 +21,7 @@ func (e Service) SetRepo(repo repository.EtheriumRepository) {
 }
 
 func NewEtheriumService(client server.Client, repo repository.EtheriumRepository, rc redis.RedisObject) Service {
-	return Service{r: repo, c: client}
+	return Service{r: repo, c: client, rc: rc}
 }
 
 func (e Service) GetBalance(uri, address, module, action, apiKey string) etherium.Balance {
@@ -77,6 +77,15 @@ func (e Service) GetGasPrice(uri, module, action, apiKey string) etherium.Gas {
 }
 func (e Service) SaveEtherium(eth etherium.Etherium) error {
 	err := e.r.Create(eth)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return nil
+}
+
+func (e Service) CacheEtherium(eth etherium.Etherium) error {
+	err := e.rc.Create(eth)
 	if err != nil {
 		log.Error(err)
 		return err

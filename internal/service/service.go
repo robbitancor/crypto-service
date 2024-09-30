@@ -10,5 +10,6 @@ type EtheriumService interface {
 	GetBlockNumber(uri, module, action, apiKey string) etherium.Block
 	GetGasPrice(uri, module, action, apiKey string) etherium.Gas
 	SaveEtherium(eth etherium.Etherium) error
+	CacheEtherium(eth etherium.Etherium) error
 	SetRepo(repo storage.EtheriumRepository)
 }
